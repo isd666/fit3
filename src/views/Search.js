@@ -140,10 +140,11 @@ class Search extends Component {
 			if (lCurr.length > 0) {
 				lrBox.scrollLeft(0)
 				$(".search-page .search_left").css("opacity", "1");
+				$(".search-page .search_left_key").css("opacity", "0");
 			} else {
 				lrBox.scrollLeft(664)
-
 				$(".search-page .search_left").css("opacity", "0");
+				$(".search-page .search_left_key").css("opacity", "1");
 
 			}
 			// 当前焦点元素
@@ -321,6 +322,9 @@ class Search extends Component {
 							})}
 						</div>
 						<div className={'search_left_btn_search flex-ajc fs36' + (this.state.buttonList[2].cursor.curr ? ' curr' : '')} ref={this.state.buttonList[2].cursor.refs}>搜索</div>
+					</div>
+					<div className="search_left_key flex-ajc">
+						<img className={'search_left_img'} src={require('../assets/images/left.png')} alt={'向左'}></img>
 					</div>
 					<div className={'search_mid'}>
 						<div className="fs46 font-bold mb32">热搜课程</div>

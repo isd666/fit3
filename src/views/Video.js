@@ -290,9 +290,11 @@ class Video extends Component {
 					console.log('item', item)
 					item.history = Math.floor(this.state.videoRef.current.currentTime * 1000)
 					item.playTime = toVideoTime(item.history / 1000)
+					item.cursor.resetDom = true
 					// item.cursor.curr = true
 				} else {
 					item.history = 0
+					item.cursor.resetDom = false
 					// item.cursor.curr = false
 				}
 			})
@@ -312,7 +314,13 @@ class Video extends Component {
 		// console.log('视频播放时间',this.state.videoRef.current.currentTime)
 		// console.log(this.props.params)
 		if(this.props.params.video_time > 0 && this.props.params.video_id === this.state.videoInfo.id) {
-			this.state.videoRef.current.currentTime = this.props.params.video_time / 1000
+			let video_time = this.props.params.video_time / 1000;
+			let video_list = this.props.params.video_list;
+			if (video_list[video_list.length - 1].id === this.props.params.video_id) {
+				// 最后一个视频播完从头开始播
+				video_time = video_time >= (this.state.videoRef.current.duration - 1) ? 0 : video_time;
+			}
+			this.state.videoRef.current.currentTime = video_time;
 		}
 		this.setState({
 			videoTime: toVideoTime(this.state.videoRef.current.currentTime),

@@ -384,6 +384,7 @@ class Detail extends Component {
 			res.contentlist.forEach((item,index)=> {
 				item.playTime = toVideoTime(item.history / 1000)
 				item.cursor = this.setCursorObj(this.props.pageId, this.detailRandomId, 'c')
+				// cursor: this.setCursorObj(this.props.pageId, this.detailBtnRandomId, 'a',null,{},true)
 				if(index === res.contentlist.length-1 && index === 0){
 					item.cursor = this.setCursorObj(this.props.pageId, this.detailRandomId, 'c',null,{
 						right: 'no',
@@ -396,7 +397,12 @@ class Detail extends Component {
 				} else if(index === 0) {
 					item.cursor = this.setCursorObj(this.props.pageId, this.detailRandomId, 'c',null,{
 						left: 'no'
-					},);
+					},true);
+				}
+				console.log(item)
+				if(item.history > 0) {
+					res.contentlist[0].cursor.resetDom = false
+					item.cursor.resetDom = true
 				}
 			})
 			res.recommend.forEach((item,index)=> {
